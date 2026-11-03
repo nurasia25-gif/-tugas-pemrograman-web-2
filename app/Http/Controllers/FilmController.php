@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Film;
 use Illuminate\Http\Request;
 
 class FilmController extends Controller
@@ -12,7 +13,8 @@ class FilmController extends Controller
     public function index()
     {
         return view('film.index', [
-            'title' => 'Film'
+            'title' => 'Film',
+            'films' => Film::latest()->get()
         ]);
     }
 
@@ -23,6 +25,7 @@ class FilmController extends Controller
     {
          return view('film.create', [
             'title' => 'Tambah Data Film'
+        
         ]);
     }
 
@@ -37,10 +40,11 @@ class FilmController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Film $film)
     {
          return view('film.show', [
-            'title' => 'Detail film'
+            'title' => 'Detail film',
+            'film' =>$film
         ]);
     }
 
