@@ -124,8 +124,12 @@ class FilmController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(film $film)
     {
-        //
+        
+    $film->delete();
+
+    return to_route('film.index')->with('success', 'Data film berhasil dihapus.');
+
     }
 }

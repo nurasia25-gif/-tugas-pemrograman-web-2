@@ -37,12 +37,18 @@
                     <td>{{ $film->tahun_rilis }}</td>
                     <td>{{ $film->durasi }} menit</td>
                     <td>
+                        
                         <a class="btn btn-warning btn-sm"
                             href="{{ route('film.edit', $film->id) }}
                             ">edit</a>
-                        <a class="btn btn-info btn-sm"
-                            href="{{ route('film.show', $film->id) }}
-                            ">show</a>
+                        <a class="btn btn-info btn-sm" href="{{ route('film.show', $film->id) }}">show</a>
+
+                        <form method='post' class="d-inline" action="{{ route('film.destroy', $film->id) }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" onclick="return confirm('Yakin ingin menghapus data tersebut?')"
+                                class="btn btn-sm btn-danger">delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

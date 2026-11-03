@@ -11,7 +11,7 @@ Route::get('/film/{film}', [FilmController::class, 'show'])->name('film.show');
 Route::post('/film', [FilmController::class, 'store'])->name('film.store'); 
 Route::get('/film/{film}/edit', [FilmController::class, 'edit'])->name('film.edit'); 
 Route::put('/film/{film}', [FilmController::class, 'update'])->name('film.update'); 
-Route::delete('/film/{film}', [FilmController::class, 'destory'])->name('film.destory'); 
+Route::delete('/film/{film}', [FilmController::class, 'destroy'])->name('film.destroy'); 
 
 Route::get('/', function () {
     return to_route('film.index');
