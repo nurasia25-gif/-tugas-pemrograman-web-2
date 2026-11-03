@@ -2,13 +2,18 @@
 
     <x-slot:title>
         {{ $title }}
+    </x-slot:title>
 
-</x-slot:title>
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
 
-<a class="btn btn-primary my-2 py-2" href="{{ route('film.create') }}
+    <a class="btn btn-primary my-2 py-2" href="{{ route('film.create') }}
 ">Tambah Data Film</a>
 
-<table class="table table-bordered border-dark table-hover">
+    <table class="table table-bordered border-dark table-hover">
         <thead>
 
             <tr>
@@ -19,12 +24,11 @@
                 <th>tahun_rilis</th>
                 <th>durasi</th>
                 <th>aksi</th>
-                
+
             </tr>
         </thead>
         <tbody>
             @foreach ($films as $film)
-
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $film->judul }}</td>
@@ -33,7 +37,8 @@
                     <td>{{ $film->tahun_rilis }}</td>
                     <td>{{ $film->durasi }} menit</td>
                     <td>
-                        <a class="btn btn-info btn-sm" href="{{ route('film.show', $film->id) }}
+                        <a class="btn btn-info btn-sm"
+                            href="{{ route('film.show', $film->id) }}
                             ">show</a>
                     </td>
                 </tr>

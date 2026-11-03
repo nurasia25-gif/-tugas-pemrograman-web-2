@@ -23,9 +23,9 @@ class FilmController extends Controller
      */
     public function create()
     {
-         return view('film.create', [
+        return view('film.create', [
             'title' => 'Tambah Data Film'
-        
+
         ]);
     }
 
@@ -34,7 +34,34 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'judul' => 'required|string',
+            'genre' => 'required|string',
+            'sutradara' => 'required|string',
+            'tahun_rilis' => 'required|integer|min:1900|max:2026',
+            'durasi' => 'required|integer',
+        ], [
+            'judul.required' => 'Judul film wajib diisi.',
+            'judul.string' => 'Judul film harus berupa teks.',
+
+            'genre.required' => 'Genre film wajib diisi.',
+            'genre.string' => 'Genre film harus berupa teks.',
+
+            'sutradara.required' => 'Nama sutradara wajib diisi.',
+            'sutradara.string' => 'Nama sutradara harus berupa teks.',
+
+            'tahun_rilis.required' => 'Tahun rilis wajib diisi.',
+            'tahun_rilis.integer' => 'Tahun rilis harus berupa angka.',
+            'tahun_rilis.min' => 'Tahun rilis minimal 1900.',
+            'tahun_rilis.max' => 'Tahun rilis maksimal 2026.',
+
+            'durasi.required' => 'Durasi film wajib diisi.',
+            'durasi.integer' => 'Durasi film harus berupa angka.',
+        ]);
+
+        Film::create($validated);
+
+        return to_route('film.index')->with('success', 'Data film berhasil ditambahkan.');
     }
 
     /**
@@ -42,9 +69,9 @@ class FilmController extends Controller
      */
     public function show(Film $film)
     {
-         return view('film.show', [
+        return view('film.show', [
             'title' => 'Detail film',
-            'film' =>$film
+            'film' => $film
         ]);
     }
 
@@ -53,7 +80,7 @@ class FilmController extends Controller
      */
     public function edit(string $id)
     {
-         return view('film.edit', [
+        return view('film.edit', [
             'title' => 'edit Data film'
         ]);
     }
