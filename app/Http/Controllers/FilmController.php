@@ -78,19 +78,47 @@ class FilmController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Film $film)
     {
         return view('film.edit', [
-            'title' => 'edit Data film'
+            'title' => 'edit Data film',
+            'film' => $film
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Film $film)
     {
-        //
+        $validated = $request->validate([
+            'judul' => 'required|string',
+            'genre' => 'required|string',
+            'sutradara' => 'required|string',
+            'tahun_rilis' => 'required|integer|min:1900|max:2026',
+            'durasi' => 'required|integer',
+        ], [
+            'judul.required' => 'Judul film wajib diisi.',
+            'judul.string' => 'Judul film harus berupa teks.',
+
+            'genre.required' => 'Genre film wajib diisi.',
+            'genre.string' => 'Genre film harus berupa teks.',
+
+            'sutradara.required' => 'Nama sutradara wajib diisi.',
+            'sutradara.string' => 'Nama sutradara harus berupa teks.',
+
+            'tahun_rilis.required' => 'Tahun rilis wajib diisi.',
+            'tahun_rilis.integer' => 'Tahun rilis harus berupa angka.',
+            'tahun_rilis.min' => 'Tahun rilis minimal 1900.',
+            'tahun_rilis.max' => 'Tahun rilis maksimal 2026.',
+
+            'durasi.required' => 'Durasi film wajib diisi.',
+            'durasi.integer' => 'Durasi film harus berupa angka.',
+        ]);
+
+        $film->update($validated);
+
+        return to_route('film.index')->with('success', 'Data film berhasil diubah.');
     }
 
     /**

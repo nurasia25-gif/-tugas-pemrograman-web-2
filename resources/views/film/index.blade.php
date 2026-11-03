@@ -37,6 +37,9 @@
                     <td>{{ $film->tahun_rilis }}</td>
                     <td>{{ $film->durasi }} menit</td>
                     <td>
+                        <a class="btn btn-warning btn-sm"
+                            href="{{ route('film.edit', $film->id) }}
+                            ">edit</a>
                         <a class="btn btn-info btn-sm"
                             href="{{ route('film.show', $film->id) }}
                             ">show</a>
